@@ -1,19 +1,16 @@
 Rails.application.routes.draw do
   get '/home', to: 'static_pages#home'
-  get '/home/:first_name', to: 'dynamic_pages#home'
   get '/contact', to: 'static_pages#contact'
   get '/team', to: 'static_pages#team'
+
   resources :gossips
   resources :users
   resources :cities
   resources :sessions, only: [:new, :create, :destroy]
-
-  resources :gossips do
-    resources :like_gossips, only: [:create, :destroy]
-  end
-
+  
   resources :gossips do
     resources :comments
+    resources :like_gossips, only: [:create, :destroy]
   end
   
   get "up" => "rails/health#show", as: :rails_health_check
